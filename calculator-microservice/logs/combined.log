@@ -1,0 +1,11 @@
+{"level":"info","message":"New addition operation requested: 10dfd addition 30","service":"calculator-microservice"}
+{"level":"error","message":"invalid input found","service":"calculator-microservice"}
+{"level":"info","message":"New addition operation requested: 10 addition 30","service":"calculator-microservice"}
+{"level":"info","message":"New + operation requested: 10 + 30","service":"calculator-microservice"}
+{"level":"info","message":"New x operation requested: 10 x 30","service":"calculator-microservice"}
+{"level":"info","message":"New / operation requested: 10 / 30","service":"calculator-microservice"}
+{"level":"info","message":"New - operation requested: 10 - 30","service":"calculator-microservice"}
+{"level":"info","message":"New - operation requested: 10sdfdsf - 30","service":"calculator-microservice"}
+{"level":"error","message":"Invalid input. Please provide valid numbers","service":"calculator-microservice"}
+{"level":"info","message":"New - operation requested: undefined - 30","service":"calculator-microservice"}
+{"level":"error","message":"null error found, Both numbers are required","service":"calculator-microservice"}
