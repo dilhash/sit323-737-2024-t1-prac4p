@@ -4,14 +4,28 @@ const app = express();
 app.use(express.json());
 
 
-// API for the Addition
-app.post('/api/add', (req, res) => {
-    const { inputnum1, inputnum2 } = req.body;
-    const result = inputnum1 + inputnum2;
-    res.json({ result });
-});
+// check if the given input is a number
+function isValidNumber(num) {
+    return !isNaN(num);
+}
 
-// Implement other endpoints similarly for subtraction, multiplication, and division
+//Addition
+function handleAddition(req, res) {
+    const { inputnum1, inputnum2 } = req.body;
+    
+    
+    if (!isValidNumber(inputnum1) || !isValidNumber(inputnum2)) {
+        return res.status(400).json({ error: 'Invalid input. Please provide valid numbers.' });
+    }
+
+    // Perform addition if input numbers are valid
+    //parseFloat is used to ensure that the input values are treated as numbers and not strings
+    const result = parseFloat(inputnum1) + parseFloat(inputnum2);
+    res.json({ result });
+}
+
+// API for the Addition
+app.post('/api/add', handleAddition);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
