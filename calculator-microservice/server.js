@@ -3,29 +3,58 @@ const app = express();
 
 app.use(express.json());
 
-
-// check if the given input is a number
-function isValidNumber(num) {
-    return !isNaN(num);
-}
-
-//Addition
-function handleAddition(req, res) {
+// Validation function
+function validateInput(req, res, next) {
     const { inputnum1, inputnum2 } = req.body;
     
+    // Check if num1 and num2 are not null or empty
+    if (inputnum1 === undefined || inputnum2 === undefined || inputnum1 === '' || inputnum2 === '') {
+        return res.status(400).json({ error: 'Both numbers are required.' });
+    }
     
-    if (!isValidNumber(inputnum1) || !isValidNumber(inputnum2)) {
+    // Check if num1 and num2 are numbers
+    if (isNaN(inputnum1) || isNaN(inputnum2)) {
         return res.status(400).json({ error: 'Invalid input. Please provide valid numbers.' });
     }
 
-    // Perform addition if input numbers are valid
-    //parseFloat is used to ensure that the input values are treated as numbers and not strings
+    // If input is valid, proceed to the next middleware/route handler
+    next();
+}
+
+
+// Function for addition
+function fnaddition(req, res) {
+    const { inputnum1, inputnum2 } = req.body;
     const result = parseFloat(inputnum1) + parseFloat(inputnum2);
     res.json({ result });
 }
 
-// API for the Addition
-app.post('/api/add', handleAddition);
+// Function for subtraction
+function fnsubtraction(req, res) {
+    const { inputnum1, inputnum2 } = req.body;
+    const result = parseFloat(inputnum1) - parseFloat(inputnum2);
+    res.json({ result });
+}
+
+// Function for multiplication
+function fnmultiplication(req, res) {
+    const { inputnum1, inputnum2 } = req.body;
+    const result = parseFloat(inputnum1) * parseFloat(inputnum2);
+    res.json({ result });
+}
+
+// Function for division
+function fndivision(req, res) {
+    const { inputnum1, inputnum2 } = req.body;
+    const result = parseFloat(inputnum1) / parseFloat(inputnum2);
+    res.json({ result });
+}
+
+// API endpoints with middleware for input validation
+app.post('/api/add', validateInput, fnaddition);
+app.post('/api/substract', validateInput, fnsubtraction);
+app.post('/api/multipy', validateInput, fnmultiplication);
+app.post('/api/divide', validateInput, fndivision);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
